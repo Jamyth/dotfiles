@@ -1,0 +1,19 @@
+configure_nvim_dacs() {
+    if [[ -n "$DACS" ]]; then
+        echo "You are in DACS environment"
+        export XDG_CONFIG_HOME="$DACS/config"
+        export XDG_DATA_HOME="$DACS/share"
+        export XDG_STATE_HOME="$DACS/state"
+    fi
+}
+
+configure_dacs_profile() {
+   local dacs_profile;
+   dacs_profile="$HOME/.dacs_run_profile"
+   if [[ -f $dacs_profile ]]; then
+       source $dacs_profile
+   fi
+}
+
+configure_nvim_dacs
+configure_dacs_profile

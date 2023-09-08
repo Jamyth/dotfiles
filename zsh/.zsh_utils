@@ -1,0 +1,19 @@
+fcd() {
+    local selected
+    if [[ -z "$DACS" ]]; then
+        selected=$(find ~ ~/Desktop/work/projects -mindepth 1 -maxdepth 1 -type d | fzf)
+    else
+        selected=$(find $DACS/Desktop/work -mindepth 1 -maxdepth 1 -type d | fzf)
+    fi
+
+    if [[ -z $selected ]]; then
+        return 1
+    fi
+
+    cd $selected
+}
+
+fnvim() {
+    fcd
+    nvim .
+}
