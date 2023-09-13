@@ -3,7 +3,11 @@ fcd() {
     if [[ -z "$DACS" ]]; then
         selected=$(find ~ ~/Desktop/work/projects -mindepth 1 -maxdepth 1 -type d | fzf)
     else
-        selected=$(find $DACS/Desktop/work -mindepth 1 -maxdepth 1 -type d | fzf)
+        if [[ -n "$1" && -d "$DACS/Desktop/work/$1" ]]; then
+            selected="$DACS/Desktop/work/$1"
+        else
+            selected=$(find $DACS/Desktop/work -mindepth 1 -maxdepth 1 -type d | fzf)
+        fi
     fi
 
     if [[ -z $selected ]]; then
@@ -14,6 +18,5 @@ fcd() {
 }
 
 fnvim() {
-    fcd
-    nvim .
+    fcd $1 && nvim .
 }

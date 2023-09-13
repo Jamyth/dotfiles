@@ -1,7 +1,7 @@
 configure_nvim_dacs() {
     if [[ -n "$DACS" ]]; then
         echo "You are in DACS environment"
-        export XDG_CONFIG_HOME="$DACS/config"
+        # export XDG_CONFIG_HOME="$DACS/config"
         export XDG_DATA_HOME="$DACS/share"
         export XDG_STATE_HOME="$DACS/state"
     fi
@@ -15,5 +15,18 @@ configure_dacs_profile() {
    fi
 }
 
+setup_fuzzy_autocompletion() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=($(cd $DACS/Desktop/work/ && compgen -d -- "$cur"))
+}
+
+configure_dacs_fuzzy_completion() {
+    if [[ -n "$DACS" ]]; then
+        complete -F setup_fuzzy_autocompletion fcd
+        complete -F setup_fuzzy_autocompletion fnvim
+    fi
+}
+
 configure_nvim_dacs
 configure_dacs_profile
+configure_dacs_fuzzy_completion
