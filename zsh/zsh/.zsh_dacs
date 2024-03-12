@@ -27,6 +27,13 @@ configure_dacs_fuzzy_completion() {
     fi
 }
 
+configure_dacs_tmux() {
+    if [[ -n "$DACS" ]]; then
+        alias tmux='tmux -S $DACS/tmux_socket'
+    fi
+}
+
 configure_nvim_dacs
 configure_dacs_profile
 configure_dacs_fuzzy_completion
+configure_dacs_tmux
