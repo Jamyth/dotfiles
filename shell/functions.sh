@@ -93,7 +93,11 @@ fcd() {
         local dir="$1"
 
         if [[ -n "$dir" && -d "$dir/$input" ]]; then
-            matched_projects="$matched_projects:$dir/$input"
+            if [[ -n "$matched_projects" ]]; then
+                matched_projects="$matched_projects:$dir/$input"
+            else
+                matched_projects="$dir/$input"
+            fi
         fi
     }
 
@@ -110,7 +114,8 @@ fcd() {
     }
 
     if [[ -n "$input" ]]; then
-        iterate_dir "$JAMYTH_PROJECTS" match_projects "$input"
+        iterate_dir "$JAMYTH_PROJECTS" match_projects
+
 
         if [[ "$match_projects" == *":"* ]]; then
             selected=$(iterate_matched_projects | fzf)
