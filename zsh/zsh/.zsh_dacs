@@ -33,6 +33,19 @@ configure_dacs_tmux() {
     fi
 }
 
+syncNvim() {
+    if [[ -n "$DACS" ]]; then
+        echo "Syncing nvim from system to DACS..."
+        rm -rf "$DACS/share/nvim"
+        rm -rf "$DACS/state/nvim"
+        cp -a ~/.local/share/nvim "$DACS/share/nvim"
+        cp -a ~/.local/state/nvim "$DACS/state/nvim"
+        echo "Synced, happy coding !"
+    else
+        echo "Please run this inside DACS environment."
+    fi
+}
+
 configure_nvim_dacs
 configure_dacs_profile
 configure_dacs_fuzzy_completion
