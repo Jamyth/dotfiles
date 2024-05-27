@@ -29,6 +29,12 @@ return {
 				},
 			},
 
+			-- Update focused file on BufEnter
+			-- un-collapees the folder to show the opened file
+			update_focused_file = {
+				enable = true,
+			},
+
 			-- disable window_picker for
 			-- explorer to work well with
 			-- window splits
