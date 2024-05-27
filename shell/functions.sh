@@ -134,6 +134,6 @@ fcd() {
 }
 
 fnvim() {
-    fcd $1 && nvim .
+    fcd $1 && nvim
 }
 
