@@ -20,13 +20,18 @@ return {
 					enable = true,
 				},
 				icons = {
+					git_placement = "signcolumn",
 					glyphs = {
-						folder = {
-							arrow_closed = "→",
-							arrow_open = "↓",
+						-- folder = {
+						-- 	-- arrow_closed = "→",
+						-- 	-- arrow_open = "↓",
+						-- },
+						git = {
+							-- unstaged = ""
 						},
 					},
 				},
+				highlight_git = "name",
 			},
 
 			-- Update focused file on BufEnter
