@@ -9,6 +9,8 @@ return {
 		local treesitter = require("nvim-treesitter.configs")
 
 		treesitter.setup({
+			auto_install = false,
+			sync_install = true,
 			highlight = {
 				enable = true,
 			},
@@ -21,10 +23,25 @@ return {
 			autotag = { enable = true },
 			-- ensure these language parsers are installed
 			ensure_installed = {
+				"c",
 				"lua",
-				"vimdoc",
 				"vim",
+				"vimdoc",
+				"query",
+				"javascript",
+				"typescript",
+				"json",
+				"json5",
+				"yaml",
+				"css",
+				"dockerfile",
 				"bash",
+				"tsx",
+				"jsdoc",
+				"html",
+				"markdown",
+				"markdown_inline",
+				"xml",
 			},
 			incremental_selection = {
 				-- TODO/Jamyth keymap conflict with keyboard lanuage switch

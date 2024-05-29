@@ -5,6 +5,7 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true }, -- auto update imports on file rename etc.
 		{ "folke/neodev.nvim", opts = {} }, -- Nice Lsp enhacenement for neovim config
+		-- "RRethy/vim-illuminate",
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
@@ -60,6 +61,29 @@ return {
 				opts.desc = "Restart LSP"
 				keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts)
 			end,
+		})
+
+		-- configure diagnostic UI
+		vim.diagnostic.config({
+			virtual_text = true,
+			signs = {
+				active = {
+					{ name = "DiagnosticSignError", text = "" },
+					{ name = "DiagnosticSignWarn", text = "" },
+					{ name = "DiagnosticSignHint", text = "" },
+					{ name = "DiagnosticSignInfo", text = "" },
+				},
+			},
+			severity_sort = true,
+			float = {
+				border = "rounded",
+				source = true,
+			},
+		})
+
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+			border = "rounded",
+			width = 60,
 		})
 
 		-- used to enable autocompletion (assign to every lsp server config)
