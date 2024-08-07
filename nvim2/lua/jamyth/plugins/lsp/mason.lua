@@ -30,6 +30,7 @@ return {
 				"graphql",
 				"emmet_ls",
 				"jsonls",
+				"eslint",
 			},
 		})
 
