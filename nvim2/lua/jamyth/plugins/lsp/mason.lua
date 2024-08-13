@@ -31,6 +31,7 @@ return {
 				"emmet_ls",
 				"jsonls",
 				"eslint",
+				"taplo",
 			},
 		})
 

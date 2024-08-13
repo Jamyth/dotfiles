@@ -42,6 +42,7 @@ return {
 				"markdown",
 				"markdown_inline",
 				"xml",
+				"toml",
 			},
 			incremental_selection = {
 				-- TODO/Jamyth keymap conflict with keyboard lanuage switch
