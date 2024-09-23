@@ -4,6 +4,9 @@ configure_nvim_dacs() {
         # export XDG_CONFIG_HOME="$DACS/config"
         export XDG_DATA_HOME="$DACS/share"
         export XDG_STATE_HOME="$DACS/state"
+        # mason's ts_ls uses $TMPDIR to store typescript related temp files
+        # which DACS restircted to access root's, hence overwriting
+        export TMPDIR="$DACS/temps"
     fi
 }
 
@@ -37,7 +40,9 @@ syncNvim() {
     if [[ -n "$DACS" ]]; then
         echo "Syncing nvim from system to DACS..."
         rm -rf "$DACS/share/nvim"
+        echo "Removed \$DACS/share/nvim"
         rm -rf "$DACS/state/nvim"
+        echo "Removed \$DACS/state/nvim"
         cp -a ~/.local/share/nvim "$DACS/share/nvim"
         cp -a ~/.local/state/nvim "$DACS/state/nvim"
         echo "Synced, happy coding !"
