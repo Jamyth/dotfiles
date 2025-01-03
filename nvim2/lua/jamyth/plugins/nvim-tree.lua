@@ -15,6 +15,12 @@ return {
 				side = "right",
 			},
 
+			filesystem_watchers = {
+				ignore_dirs = {
+					"node_modules",
+				},
+			},
+
 			-- change folder arrow icon
 			renderer = {
 				indent_markers = {

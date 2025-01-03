@@ -40,7 +40,7 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- Scrolling
-opt.scrolloff = 16
+opt.scrolloff = 20
 
 -- Unknown options (need to figure)
 opt.isfname:append("@-@")
