@@ -39,4 +39,5 @@ keymap.set("n", "U", "<C-R>", { desc = "u is undo, U should be redo" })
 keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Navigate half page down then center the cursor" })
 keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Navigate half page up then center the cursor" })
 
+keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 -- Custom commands
