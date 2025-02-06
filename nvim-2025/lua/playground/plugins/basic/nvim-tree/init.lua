@@ -27,12 +27,12 @@ return {
 
             -- Configure custom made
             keymap.set("n", "L", nvim_tree_utils.vsplit_preview, opts("VSplit Preview"))
-
         end
 
         require('nvim-tree').setup({
             on_attach = on_attach,
             view = {
+                width = 45,
                 side = "right",
                 relativenumber = true,
             },
@@ -45,10 +45,16 @@ return {
                 
                 indent_markers = {
                     enable = true
+                },
+
+                icons = {
+                   show = {
+                     git = false -- We just need to highlight the name, icons are not needed
+                   }
                 }
             },
             git = {
-                enable = true
+                enable = true,
             },
             modified = {
                 enable = true
@@ -60,18 +66,16 @@ return {
             },
             actions = {
                 open_file = {
-                    -- quit_on_open = true, -- Closes the tree when opening a file
+                    quit_on_open = true, -- Closes the tree when opening a file
                     window_picker = {
                         -- enable = false, -- A picker will show if opening a file which selectable pane
                     },
                 }
             },
-            update_focused_file = {
-                enable = true, -- tree will update it self to center the opened file
-            }
         })
 
         -- Configure Keymaps
         keymap.set("n", "<leader>ee", nvim_tree_api.tree.toggle, { desc = "Toggle Nvim Tree" })
+        keymap.set("n", "<leader>ef", nvim_tree_utils.open_and_focus_in_tree, { desc = "Open Nvim Tree and focus current file in the tree" })
     end
 }

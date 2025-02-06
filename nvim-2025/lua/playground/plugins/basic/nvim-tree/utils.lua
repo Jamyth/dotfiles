@@ -12,21 +12,6 @@ M.label_path = function (path)
         (path:match '[a-zA-Z]([a-z0-9]*)$' or '')
 end
 
-local handle_node = function(callback)
-    local node = api.tree.get_node_under_cursor()
-
-    if node.nodes ~= nil then
-        -- Expand or collapse folder
-        api.node.open.edit()
-    else
-        callback(api.node)
-    end
-
-    -- refocus the tree if it was lost
-    api.tree.focus()
-
-end
-
 M.vsplit_preview = function()
     local node = api.tree.get_node_under_cursor()
 
@@ -39,6 +24,13 @@ M.vsplit_preview = function()
 
     -- refocus the tree if it was lost
     api.tree.focus()
+end
+
+M.open_and_focus_in_tree = function()
+    api.tree.find_file({
+        open = true,
+        focus = true,
+    })
 end
 
 return M
