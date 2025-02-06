@@ -2,6 +2,10 @@ return {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPre", "BufNewFile" },
     build = ":TSUpdate",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter-context", -- show the context of the code block
+        "nvim-treesitter/nvim-treesitter-textobjects", -- add syntax-aware text-objects
+    },
     config = function ()
         local configs = require("nvim-treesitter.configs")
 
@@ -9,7 +13,8 @@ return {
             -- Core Setup
             ensure_installed = { "c", "lua", "vim", "vimdoc" },
             sync_install = false,
-            auto_install = true,
+            -- Do not install missing parser when entering
+            auto_install = false,
             highlight = {
                 enable = true,
 
@@ -27,9 +32,26 @@ return {
             },
             indent = {
                 enable = true,
-            }
+            },
 
             -- Other Plugin Integrations
+            -- text objects
+            textobjects = {
+                select = {
+                    enable = true,
+                    lookahead = true,
+                    keymaps = {
+                        ["af"] = "@function.outer",
+                        ["if"] = "@function.inner",
+                        ["ac"] = "@class.outer",
+                        ["ic"] = "@class.inner",
+                        ["ar"] = "@regex.outer",
+                        ["ir"] = "@regex.inner",
+                        ["ab"] = "@block.outer",
+                        ["ib"] = "@block.inner",
+                    }
+                }
+            }
         })
     end
 }
