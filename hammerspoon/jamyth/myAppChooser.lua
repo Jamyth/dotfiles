@@ -6,6 +6,7 @@ m.chooserSetup = function(hotkeyModal, nestedHotkeyModal)
 	self.chooser = nil
 	self.window = nil
 
+	local shortcuts = { "a", "s", "d", "f", "g", "h", "j", "k", "l", ";" }
 	local storagePath = hs.fs.pathToAbsolute("~/.hammerspoon/jamyth/windowList.json")
 
 	local function saveWindowList()
@@ -62,10 +63,11 @@ m.chooserSetup = function(hotkeyModal, nestedHotkeyModal)
 		:bgDark(true)
 		:choices(function()
 			local choices = {}
-			for k, window in pairs(self.registeredWindows) do
+			for k, window in ipairs(self.registeredWindows) do
 				local app = window:application()
+				local shortcutKey = shortcuts[k]:upper()
 				choices[k] = {
-					["text"] = app:name(),
+					["text"] = shortcutKey .. " " .. app:name(),
 					["subText"] = window:title(),
 					["id"] = window,
 					["image"] = hs.image.imageFromAppBundle(app:bundleID()),
@@ -98,7 +100,7 @@ m.chooserSetup = function(hotkeyModal, nestedHotkeyModal)
 		end)
 	end
 
-	for i, name in ipairs({ "a", "s", "d", "f", "g", "h", "j" }) do
+	for i, name in ipairs(shortcuts) do
 		hotkeyModal:bind("", name, function()
 			hotkeyModal:exit()
 			self.registeredWindows[i]:focus()
