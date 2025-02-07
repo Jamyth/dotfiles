@@ -11,7 +11,7 @@ return {
 
         configs.setup({
             -- Core Setup
-            ensure_installed = { "c", "lua", "vim", "vimdoc" },
+            ensure_installed = { "c", "lua", "vim", "vimdoc", "regex" },
             sync_install = false,
             -- Do not install missing parser when entering
             auto_install = false,

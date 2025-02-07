@@ -1,5 +1,9 @@
 return {
 	"rmagatti/auto-session",
+    keys = {
+        "<leader>ws",
+        "<leader>wr",
+    },
 	config = function()
 		local auto_session = require("auto-session")
 
