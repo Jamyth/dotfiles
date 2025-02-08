@@ -3,7 +3,6 @@ return {
     event = { "BufRead", "BufNewFile" },
     config = function ()
         local gitsigns = require("gitsigns")
-        local keymap = vim.keymap
 
         local on_attach = function (bufnr)
             local map_key = function(mode, l, r, opts)
@@ -13,7 +12,7 @@ return {
             end
 
             -- Navigation
-            map_key("n", "<leader>hn", function() 
+            map_key("n", "<leader>hn", function()
                 if vim.wo.diff then
                     print("no git changes")
                 else
@@ -21,7 +20,7 @@ return {
                 end
             end)
 
-            map_key("n", "<leader>hN", function() 
+            map_key("n", "<leader>hN", function()
                 if vim.wo.diff then
                     print("no git changes")
                 else
@@ -31,7 +30,7 @@ return {
 
             map_key("n", "<leader>hs", gitsigns.stage_hunk)
             map_key("n", "<leader>hr", gitsigns.reset_hunk)
-            
+
             -- Un/Stage by line
             map_key('v', '<leader>hs', function()
                 gitsigns.stage_hunk({ vim.fn.line('.'), vim.fn.line('v') })
