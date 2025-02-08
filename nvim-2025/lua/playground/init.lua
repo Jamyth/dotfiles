@@ -3,4 +3,5 @@ require("core.lazy_nvim").setup({
 	{ import = "playground.plugins" },
 	{ import = "playground.plugins.basic" },
 	{ import = "playground.plugins.basic.ui" },
+	{ import = "playground.plugins.basic.git" },
 })
