@@ -13,5 +13,6 @@ return {
 
         -- keymaps
         keymap.set("n", "<leader>lg", function() neogit.open({ kind = "floating" }) end, { desc = "Open Neogit" })
+        keymap.set("n", "<leader>hd", function() neogit.open({ "diff" }) end, { desc = "Open Neogit Diffview" })
     end
 }

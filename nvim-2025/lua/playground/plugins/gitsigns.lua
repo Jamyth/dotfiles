@@ -1,7 +1,6 @@
 return {
     "lewis6991/gitsigns.nvim",
     event = { "BufRead", "BufNewFile" },
-    enabled = false,
     config = function ()
         local gitsigns = require("gitsigns")
         local keymap = vim.keymap
@@ -46,11 +45,6 @@ return {
             map_key('n', '<leader>hR', gitsigns.reset_buffer)
             map_key('n', '<leader>hp', gitsigns.preview_hunk)
             map_key('n', '<leader>hi', gitsigns.preview_hunk_inline)
-
-            map_key('n', '<leader>hd', gitsigns.diffthis)
-            map_key('n', '<leader>hD', function()
-                gitsigns.diffthis('~')
-            end)
 
             -- Text object
             map_key({'o', 'x'}, 'ih', '<cmd>Gitsigns select_hunk<CR>')
