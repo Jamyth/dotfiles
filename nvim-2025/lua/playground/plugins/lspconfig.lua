@@ -109,7 +109,33 @@ return {
 					capabilities = capabilities,
 				})
 			end,
-			-- TODO:Jamyth setup eslint_d
+			["eslint"] = function()
+				lspconfig.eslint.setup({
+					capabilities = capabilities,
+					on_attach = function(client, bufnr)
+						on_attach(client, bufnr)
+						-- Disable ESLint's formatting capability to avoid conflicts with conform.nvim
+						client.server_capabilities.documentFormattingProvider = false
+
+						-- Formatting
+						-- TODO:Jamyth double check the autocmd orders with conform.nvim
+						-- Autofixes should run after the conform formatting
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							buffer = bufnr,
+							callback = function()
+								vim.lsp.buf.code_action({
+									context = { only = { "source.fixAll" }, diagnostics = {} },
+									apply = true,
+								})
+							end,
+						})
+					end,
+					settings = {
+						format = { enable = true },
+					},
+					cmd = { "eslint_d", "--stdio" },
+				})
+			end,
 		})
 	end,
 }
