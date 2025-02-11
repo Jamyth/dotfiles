@@ -4,6 +4,7 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 		"folke/neodev.nvim", -- vim api support in lua_ls
+		"pmizio/typescript-tools.nvim",
 	},
 	config = function()
 		local neodev = require("neodev")
@@ -14,6 +15,7 @@ return {
 		local mason_lspconfig = require("mason-lspconfig")
 		local telescope_builtin = require("telescope.builtin")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
+		local typescript_tools = require("typescript-tools")
 		local keymap = vim.keymap
 
 		-- Configure UI related
@@ -114,26 +116,27 @@ return {
 					capabilities = capabilities,
 					on_attach = function(client, bufnr)
 						on_attach(client, bufnr)
-						-- Disable ESLint's formatting capability to avoid conflicts with conform.nvim
-						client.server_capabilities.documentFormattingProvider = false
-
-						-- Formatting
-						-- TODO:Jamyth double check the autocmd orders with conform.nvim
-						-- Autofixes should run after the conform formatting
+						client.server_capabilities.documentFormattingProvider = true
+						-- Autofix on save
 						vim.api.nvim_create_autocmd("BufWritePre", {
 							buffer = bufnr,
 							callback = function()
-								vim.lsp.buf.code_action({
-									context = { only = { "source.fixAll" }, diagnostics = {} },
-									apply = true,
-								})
+								vim.lsp.buf.format()
 							end,
 						})
 					end,
 					settings = {
 						format = { enable = true },
 					},
+					-- TODO:Jamyth check if this cmd works
 					cmd = { "eslint_d", "--stdio" },
+				})
+			end,
+			-- Handle typescript-tools
+			["ts_ls"] = function()
+				typescript_tools.setup({
+					on_attach = on_attach,
+					capabilities = capabilities,
 				})
 			end,
 		})
