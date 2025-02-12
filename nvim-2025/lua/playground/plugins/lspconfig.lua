@@ -111,27 +111,6 @@ return {
 					capabilities = capabilities,
 				})
 			end,
-			["eslint"] = function()
-				lspconfig.eslint.setup({
-					capabilities = capabilities,
-					on_attach = function(client, bufnr)
-						on_attach(client, bufnr)
-						client.server_capabilities.documentFormattingProvider = true
-						-- Autofix on save
-						vim.api.nvim_create_autocmd("BufWritePre", {
-							buffer = bufnr,
-							callback = function()
-								vim.lsp.buf.format()
-							end,
-						})
-					end,
-					settings = {
-						format = { enable = true },
-					},
-					-- TODO:Jamyth check if this cmd works
-					cmd = { "eslint_d", "--stdio" },
-				})
-			end,
 			-- Handle typescript-tools
 			["ts_ls"] = function()
 				typescript_tools.setup({
