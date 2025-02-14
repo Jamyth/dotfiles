@@ -1,3 +1,14 @@
 #!/usr/bin/env bash
 
-echo "Hello WezTerm"
+script_dir=$(cd $(dirname "BASH_SOURCE[0]") && pwd)
+
+pushd "$script_dir/repos" > /dev/null
+git clone --depth=1 --branch=main --recursive https://github.com/wezterm/wezterm.git
+cd wezterm
+git pull --rebase --autostash
+git submodule update --init --recursive
+./get-deps
+cargo build --release
+cargo run --release --bin wezterm -- start
+popd > /dev/null
+
