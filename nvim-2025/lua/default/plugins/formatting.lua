@@ -20,8 +20,7 @@ return {
 				lua = { "stylua" },
 			},
 			format_on_save = {
-				async = false,
-				timeout_ms = 700,
+				timeout_ms = 1000,
 				lsp_format = "last",
 				filter = function(client)
 					return client.name == "eslint" -- Make sure only eslint lsp can do the formatting
