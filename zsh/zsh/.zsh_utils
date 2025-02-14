@@ -1,10 +1,41 @@
 fcd() {
+    local input
+    local dry="0"
     local selected
+
+    while [[ $# > 0 ]]; do
+        if [[ $1 == '--dry' ]]; then
+            dry="1"
+        else
+            input=$1
+        fi
+        shift
+    done
+
+    log() {
+        if [[ $dry == "1" ]]; then
+            echo "[DRY] $@"
+        fi
+    }
+
+    execute() {
+        log $@
+        if [[ $dry == "0" ]]; then
+            $@
+        fi
+    }
+
+    log "input" $input
+
     if [[ -z "$DACS" ]]; then
-        selected=$(find ~ ~/Desktop/work/projects -mindepth 1 -maxdepth 1 -type d | fzf)
+        if [[ -n "$input" && -d "$HOME/Desktop/work/projects/$input" ]]; then
+            selected="$HOME/Desktop/work/projects/$input"
+        else
+            selected=$(find ~ ~/Desktop/work/projects -mindepth 1 -maxdepth 1 -type d | fzf)
+        fi
     else
-        if [[ -n "$1" && -d "$DACS/Desktop/work/$1" ]]; then
-            selected="$DACS/Desktop/work/$1"
+        if [[ -n "$input" && -d "$DACS/Desktop/work/$input" ]]; then
+            selected="$DACS/Desktop/work/$input"
         else
             selected=$(find $DACS/Desktop/work -mindepth 1 -maxdepth 1 -type d | fzf)
         fi
@@ -14,9 +45,17 @@ fcd() {
         return 1
     fi
 
-    cd $selected
+    execute cd $selected
 }
 
 fnvim() {
     fcd $1 && nvim .
 }
+
+setup_fuzzy_global_completion() {
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=($(cd ~/Desktop/work/projects/ && compgen -d -- "$cur"))
+}
+
+complete -F setup_fuzzy_global_completion fcd
+complete -F setup_fuzzy_global_completion fnvim
